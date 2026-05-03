@@ -34,7 +34,10 @@ async def health_check():
 
 
 #from app.cache import redis_client
-from app.db import engine
+#from app.db import engine
+from app.db import get_engine
+
+engine = get_engine()
 from app.cache import get_redis
 
 redis_client = get_redis()
