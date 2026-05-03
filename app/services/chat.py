@@ -1,10 +1,10 @@
 from app.services.memory import get_history, save_message
 from app.services.llm import generate_response
 import uuid
-from app.db import ChatMessage
+from app.db import ChatMessage, get_session
 from datetime import datetime
 from sqlalchemy import select
-from app.db import get_session
+from app.agent import graph
 #.venv\Scripts\Activate.ps1     
 from app.agent import graph
 
