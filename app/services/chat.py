@@ -1,7 +1,7 @@
 from app.services.memory import get_history, save_message
 from app.services.llm import generate_response
 import uuid
-from app.db import ChatMessage, AsyncSessionLocal
+from app.db import ChatMessage
 from datetime import datetime
 from sqlalchemy import select
 from app.db import get_session
