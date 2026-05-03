@@ -33,3 +33,28 @@ class ChatMessage(Base):
     role = Column(String)  # user / assistant
     content = Column(Text)
     created_at = Column(DateTime, default=datetime.utcnow)
+
+
+
+
+from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker
+from app.config import settings
+
+engine = None
+AsyncSessionLocal = None
+
+
+def get_engine():
+    global engine
+    if engine is None:
+        if not settings.postgres_url:
+            raise ValueError("POSTGRES_URL not set")
+        engine = create_async_engine(settings.postgres_url)
+    return engine
+
+
+def get_session():
+    global AsyncSessionLocal
+    if AsyncSessionLocal is None:
+        AsyncSessionLocal = async_sessionmaker(get_engine(), expire_on_commit=False)
+    return AsyncSessionLocal

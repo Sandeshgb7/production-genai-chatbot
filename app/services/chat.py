@@ -4,7 +4,7 @@ import uuid
 from app.db import ChatMessage, AsyncSessionLocal
 from datetime import datetime
 from sqlalchemy import select
-
+from app.db import get_session
 #.venv\Scripts\Activate.ps1     
 from app.agent import graph
 
@@ -25,7 +25,8 @@ async def handle_chat(user_id: str, session_id: str, user_input: str):
     return response
 
 async def save_to_db(user_id, session_id, role, content):
-    async with AsyncSessionLocal() as db:
+    async with get_session()() as db:
+
         msg = ChatMessage(
             id=str(uuid.uuid4()),
             user_id=user_id,
@@ -38,7 +39,7 @@ async def save_to_db(user_id, session_id, role, content):
         await db.commit()
 
 async def get_chat_history(user_id: str, session_id: str, limit: int = 20, offset: int = 0):
-    async with AsyncSessionLocal() as db:
+    async with get_session()() as db:
         result = await db.execute(
             select(ChatMessage)
             .where(
