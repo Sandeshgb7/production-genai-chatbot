@@ -1,0 +1,40 @@
+# Core API
+fastapi
+uvicorn[standard]
+
+# Database
+sqlalchemy
+asyncpg
+psycopg2-binary
+
+# Cache
+redis
+
+# Config
+pydantic
+pydantic-settings
+python-dotenv
+
+# LLM + Agent
+langchain
+langgraph
+openai
+tiktoken
+
+# Auth
+python-jose
+passlib[bcrypt]
+
+# Observability
+langsmith
+
+# Evaluation
+deepeval
+
+# Testing
+pytest
+pytest-asyncio
+httpx
+
+# Utilities
+python-multipart
