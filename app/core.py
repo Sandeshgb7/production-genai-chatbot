@@ -2,7 +2,7 @@ import logging
 import sys
 from fastapi import Depends, HTTPException
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
-import jwt
+from jose import jwt
 from datetime import datetime, timedelta
 
 SECRET_KEY = "super-secret"   # move to .env later

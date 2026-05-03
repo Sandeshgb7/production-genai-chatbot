@@ -38,3 +38,4 @@ httpx
 
 # Utilities
 python-multipart
+python-jose
