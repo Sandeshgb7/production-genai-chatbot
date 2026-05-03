@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chatbot
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: chatbot
+  template:
+    metadata:
+      labels:
+        app: chatbot
+    spec:
+      containers:
+      - name: chatbot
+        image: your-image
+        ports:
+        - containerPort: 8000
+✅ 7. CI/CD (GitHub Actions)
