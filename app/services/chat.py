@@ -19,8 +19,8 @@ async def handle_chat(user_id: str, session_id: str, user_input: str):
     response = result["messages"][-1]["content"] 
 
     # save memory
-    await save_message(user_id, session_id, {"role": "user", "content": user_input})
-    await save_message(user_id, session_id, {"role": "assistant", "content": response})
+    await save_to_db(user_id, session_id, "user", user_input)
+    await save_to_db(user_id, session_id, "assistant", response)
 
     return response
 

@@ -1,23 +1,23 @@
 import pytest
 from httpx import AsyncClient, ASGITransport
 from app.main import app
-
-# 👇 import auth dependency
 from app.core import get_current_user
 
 
 @pytest.mark.asyncio
 async def test_chat(monkeypatch):
 
-    # ✅ override auth (skip JWT validation)
+    # override auth
     app.dependency_overrides[get_current_user] = lambda: "test_user"
 
-    # ✅ mock LLM
+    # mock LLM
     async def fake_llm(messages):
         return "mock response"
 
-    #monkeypatch.setattr("app.services.llm.generate_response", fake_llm)
-    monkeypatch.setattr("app.agent.generate_response", fake_llm)
+    monkeypatch.setattr("app.services.llm.generate_response", fake_llm)
+
+    # mock DB write
+    monkeypatch.setattr("app.services.chat.save_to_db", lambda *args, **kwargs: None)
 
     transport = ASGITransport(app=app)
 
@@ -32,3 +32,6 @@ async def test_chat(monkeypatch):
 
     assert response.status_code == 200
     assert response.json()["response"] == "mock response"
+
+    # cleanup
+    app.dependency_overrides = {}
