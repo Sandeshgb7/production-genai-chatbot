@@ -33,9 +33,11 @@ async def health_check():
     return {"status": "ok"}
 
 
-from app.cache import redis_client
+#from app.cache import redis_client
 from app.db import engine
+from app.cache import get_redis
 
+redis_client = get_redis()
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):

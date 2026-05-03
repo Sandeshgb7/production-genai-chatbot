@@ -1,7 +1,9 @@
 import json
 
 try:
-    from app.cache import redis_client
+    from app.cache import get_redis
+
+    redis_client = get_redis()
     USE_REDIS = True
 except Exception:
     USE_REDIS = False
